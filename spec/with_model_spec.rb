@@ -118,8 +118,8 @@ describe 'a temporary ActiveRecord model created with with_model' do
     with_model :BlogPosts
 
     it 'does not singularize the constant name' do
-      expect(BlogPosts).to be
-      expect(-> { BlogPost }).to raise_error(NameError)
+      expect { BlogPosts }.not_to raise_error
+      expect { BlogPost }.to raise_error(NameError)
     end
   end
 
@@ -182,7 +182,7 @@ describe 'a temporary ActiveRecord model created with with_model' do
     end
 
     it 'has the mixin' do
-      expect(-> { ::WithAMixin.new.foo }).not_to raise_error
+      expect { ::WithAMixin.new.foo }.not_to raise_error
       expect(::WithAMixin.include?(AMixin)).to eq true
     end
   end
